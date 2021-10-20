@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	
+		<title>Vue 7 J1 Answer</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			.formfield{margin-bottom:10px;}
+		</style>
+	</head>
+	<body>
+	<p>Winning Score Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2019/index.html">from the J1 problem hosted by the CCC.</a></p>
+	<div id="app">
+        <h1>Team Apples</h1>
+		<div class="formfield">
+			<label>First Line: <label> <input v-model="apple_firstLine_points">
+		</div>
+		<div class="formfield">
+			<label>Second Line: <label> <input v-model="apple_secondLine_points">
+		</div>
+		<div class="formfield">
+			<label>Third Line: <label> <input v-model="apple_thirdLine__points">
+		</div>
+        <h1>Team Bananas</h1>
+		<div class="formfield">
+			<label>First Line: <label> <input v-model="banana_firstLine_points">
+		</div>
+		<div class="formfield">
+			<label>Second Line: <label> <input v-model="banana_secondLine_points">
+		</div>
+		<div class="formfield">
+			<label>Third Line: <label> <input v-model="banana_thirdLine_points">
+		</div>
+		<div id="result">
+			<h2>Result</h2>
+			<div><label>Show Total:</label><input type="checkbox" v-model="team_total"></div>
+			<div v-if="team_total">Apple Total: {{apple_total}}</div>
+			<div v-if="team_total">Banana Total: {{banana_total}}</div>
+			<h2>Winning Team</h2>
+			<span v-if="winner">A</span>
+			<span v-else>B</span>
+		</div>
+	</div>
+	
+	<script>
+	var app = new Vue({
+		el: '#app',
+		data:{
+			team_total:false,
+			apple_firstLine_points:0,
+			apple_secondLine_points:0,
+			apple_thirdLine__points:0,
+			banana_firstLine_points:0,
+			banana_secondLine_points:0,
+			banana_thirdLine_points:0,
+			firstLine_value:3,
+			secondLine_value:2,
+			thirdLine_value:1
+		},
+		computed:{
+			apple_total:function(){
+				return (this.apple_firstLine_points * this.firstLine_value) + 
+				(this.apple_secondLine_points * this.secondLine_value) + 
+				(this.apple_thirdLine__points * this.thirdLine_value);	
+			},
+			banana_total:function(){
+				return (this.banana_firstLine_points * this.firstLine_value) + 
+				(this.banana_secondLine_points * this.secondLine_value) + 
+				(this.banana_thirdLine_points * this.thirdLine_value);
+			},
+			winner:function(){
+				return this.apple_total >= this.banana_total;
+			}
+		}
+	});
+	
+	</script>
+	<!--
+		v-model will allow you to quickly bind form elements to the data property.
+		Make sure to set a default value!
+		The Computed property can be used like data, except for values that are calculated from data properties.
+		In this example 'treat_total' is computed from data properties, and 'is_happy' is computed from 'treat_total'.
+		
+		ASYNCHRONOUS LEARNING EXERCISE : J1
+		- Find any J1 problem
+		- Imagine an interface that allows the user to enter data on the webpage
+		- Build using v-model and computed properties!
+	
+	-->
+	</body>
+</html>
